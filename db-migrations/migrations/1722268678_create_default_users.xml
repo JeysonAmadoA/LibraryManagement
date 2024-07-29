@@ -1,0 +1,66 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="2" author="JeysonAmadoA">
+
+        <!-- Insert ADMIN user -->
+        <insert tableName="users">
+            <column name="name" value="Admin User"/>
+            <column name="password" value="$2a$10$MAmJzx/ilbY6GMCak5sljeGx85jzBGvdpnHL73B2Vmo9uyg2jn6SC"/>
+            <column name="email" value="admin@example.com"/>
+            <column name="document_number" value="123456789"/>
+            <column name="address" value="123 Admin St"/>
+            <column name="role" value="ADMIN"/>
+            <column name="user_who_created_id" value="1"/>
+            <column name="created_at" value="2024-07-29T00:00:00"/>
+            <column name="user_who_updated_id" value="1"/>
+            <column name="updated_at" value="2024-07-29T00:00:00"/>
+        </insert>
+
+        <!-- Insert LIBRARIAN user -->
+        <insert tableName="users">
+            <column name="name" value="Tyler Robert Joseph"/>
+            <column name="password" value="$2a$10$HiryVNu5Ll7.XffYPb2mNOaOlzNlCLXhzVGT1OXuUUgXfOfTSYrSe"/>
+            <column name="email" value="tyler.joseph@example.com"/>
+            <column name="document_number" value="987654321"/>
+            <column name="address" value="Mulberry Street"/>
+            <column name="role" value="LIBRARIAN"/>
+            <column name="user_who_created_id" value="1"/>
+            <column name="created_at" value="2024-07-29T00:00:00"/>
+            <column name="user_who_updated_id" value="1"/>
+            <column name="updated_at" value="2024-07-29T00:00:00"/>
+        </insert>
+
+        <!-- Insert CUSTOMER user -->
+        <insert tableName="users">
+            <column name="name" value="Joshua William Dun"/>
+            <column name="password" value="$2a$10$qQTDJ/6L9WOqgiZqHASSkOAre8jRp1vQnPxuZr7tT2caUZZrYkKBy"/>
+            <column name="email" value="joshua.dun@example.com"/>
+            <column name="document_number" value="112233445"/>
+            <column name="address" value="Trench # 77-1"/>
+            <column name="role" value="CUSTOMER"/>
+            <column name="user_who_created_id" value="1"/>
+            <column name="created_at" value="2024-07-29T00:00:00"/>
+            <column name="user_who_updated_id" value="1"/>
+            <column name="updated_at" value="2024-07-29T00:00:00"/>
+        </insert>
+
+        <!-- Rollback -->
+        <rollback>
+            <delete tableName="users">
+                <where>email = 'admin@example.com'</where>
+            </delete>
+            <delete tableName="users">
+                <where>email = 'tyler.joseph@example.com'</where>
+            </delete>
+            <delete tableName="users">
+                <where>email = 'joshua.dun@example.com'</where>
+            </delete>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>
