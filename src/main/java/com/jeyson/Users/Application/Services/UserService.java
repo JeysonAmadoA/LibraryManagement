@@ -1,19 +1,20 @@
 package com.jeyson.Users.Application.Services;
 
+import com.jeyson.Users.Domain.Dto.Users.UpdateUserDto;
 import com.jeyson.Users.Domain.Dto.Users.UserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserDto getUserById(Long userId);
+    UserDto filterUserById(Long userId);
 
-    List<UserDto> getAllUsers();
+    List<UserDto> findAllUsers();
 
     List<UserDto> filterUsersByEmail(String email);
 
-    List<UserDto> filterUsersByName(String entrySearch);
+    List<UserDto> filterUsersByName(String name);
 
-    UserDto updateUser(UserDto userDto, Long userId);
+    UserDto updateUser(UpdateUserDto userDto, Long userId);
 
 }

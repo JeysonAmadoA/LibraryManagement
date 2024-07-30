@@ -1,6 +1,7 @@
 package com.jeyson.Users.Application.Mappers;
 
 import com.jeyson.Users.Domain.Dto.Auth.RegisterDto;
+import com.jeyson.Users.Domain.Dto.Users.UpdateUserDto;
 import com.jeyson.Users.Domain.Dto.Users.UserDto;
 import com.jeyson.Users.Domain.Entities.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,10 +22,9 @@ public class UserMapper {
                     .build();
         }
 
-        public static User update(User user, UserDto userDto){
+        public static User update(User user, UpdateUserDto userDto){
             user.setName(userDto.getName());
             user.setEmail(userDto.getEmail());
-            user.setDocumentNumber(userDto.getDocumentNumber());
             user.setAddress(userDto.getAddress());
             return user;
         }

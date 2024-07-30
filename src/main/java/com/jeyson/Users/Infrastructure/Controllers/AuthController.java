@@ -56,5 +56,4 @@ public class AuthController extends BaseController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-
 }

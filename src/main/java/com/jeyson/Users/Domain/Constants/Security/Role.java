@@ -10,6 +10,9 @@ public enum Role {
 
     ADMIN(
             Arrays.asList(
+                    Permission.CREATE_ADMIN,
+                    Permission.CREATE_LIBRARIAN,
+                    Permission.CREATE_CUSTOMER,
                     Permission.UPDATE_USERS,
                     Permission.DELETE_USERS,
                     Permission.GET_ALL_USERS,
@@ -19,6 +22,7 @@ public enum Role {
 
     LIBRARIAN(
             Arrays.asList(
+                    Permission.CREATE_CUSTOMER,
                     Permission.UPDATE_USERS,
                     Permission.GET_ALL_USERS,
                     Permission.GET_ONE_USER
