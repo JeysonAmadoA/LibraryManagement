@@ -1,11 +1,11 @@
 package com.jeyson.Users.Infrastructure.Services;
 
-import com.jeyson.Users.Application.Mappers.UserMapper;
 import com.jeyson.Users.Application.Repositories.UserRepository;
 import com.jeyson.Users.Application.Services.UserService;
 import com.jeyson.Users.Domain.Dto.Users.UserDto;
 import com.jeyson.Users.Domain.Entities.User;
 import com.jeyson.Users.Domain.Exceptions.UserNotFoundException;
+import org.springframework.stereotype.Service;
 
 import static com.jeyson.Users.Application.Mappers.UserMapper.UserDtoMapper;
 import static com.jeyson.Users.Domain.Helpers.AuthHelper.getActualUser;
@@ -13,6 +13,7 @@ import static com.jeyson.Users.Domain.Helpers.AuthHelper.getActualUser;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;

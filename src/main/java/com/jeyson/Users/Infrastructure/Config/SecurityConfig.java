@@ -1,6 +1,5 @@
 package com.jeyson.Users.Infrastructure.Config;
 
-import com.jeyson.Users.Domain.Constants.Security.Permission;
 import com.jeyson.Users.Infrastructure.Utilities.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,13 +38,6 @@ public class SecurityConfig {
                 .headers(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( auth -> {
                     auth.requestMatchers(antMatcher("/auth/*") ).permitAll();
-                    auth.requestMatchers(antMatcher("/h2-console/*")).permitAll();
-                    auth.requestMatchers(antMatcher( "/users")).hasAuthority(Permission.GET_ALL_USERS.name());
-                    auth.requestMatchers(antMatcher( "/users/{id}")).hasAuthority(Permission.GET_ONE_USER.name());
-                    auth.requestMatchers(antMatcher( "/users/update/{id}")).hasAuthority(Permission.UPDATE_USERS.name());
-                    auth.requestMatchers(antMatcher( "/users/update/password/{id}")).hasAuthority(Permission.UPDATE_USERS.name());
-                    auth.requestMatchers(antMatcher( "/users/delete/{id}")).hasAuthority(Permission.DELETE_USERS.name());
-
                     auth.anyRequest().authenticated();
 
                 });

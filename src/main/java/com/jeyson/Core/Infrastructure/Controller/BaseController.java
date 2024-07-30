@@ -41,13 +41,13 @@ public abstract class BaseController {
     }
 
     @ExceptionHandler({ElementNotFoundException.class})
-    public ResponseEntity<Map<String, Object>> notFoundError(ElementNotFoundException exception){
+    public ResponseEntity<Map<String, Object>> handleNotFoundError(ElementNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(getJsonResponse(exception, HttpStatus.NOT_FOUND.value()));
     }
 
-    @ExceptionHandler({ElementNotFoundException.class})
-    public ResponseEntity<Map<String, Object>> badRequestError(BusinessLogicException exception){
+    @ExceptionHandler({BusinessLogicException.class})
+    public ResponseEntity<Map<String, Object>> handleBadRequestError(BusinessLogicException exception){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(getJsonResponse(exception, HttpStatus.BAD_REQUEST.value()));
     }
