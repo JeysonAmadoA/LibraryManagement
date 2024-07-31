@@ -7,12 +7,14 @@ import com.jeyson.Books.Domain.Dto.RegisterBookcaseDto;
 import com.jeyson.Books.Domain.Entities.Bookcase;
 import com.jeyson.Books.Domain.Exceptions.BookcaseNotFoundException;
 import com.jeyson.Books.Domain.Exceptions.RegisterBookException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import static com.jeyson.Books.Application.Mappers.BookcaseMapper.*;
 import static com.jeyson.Users.Domain.Helpers.AuthHelper.getActualUser;
 
+@Service
 public class BookcaseServiceImpl implements BookcaseService {
 
     private final BookcaseRepository bookcaseRepository;

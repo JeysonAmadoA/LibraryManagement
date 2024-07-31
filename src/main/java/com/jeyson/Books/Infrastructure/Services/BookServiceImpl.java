@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import static com.jeyson.Books.Application.Mappers.BookMapper.*;
 import static com.jeyson.Users.Domain.Helpers.AuthHelper.getActualUser;
 
-
 @Service
 public class BookServiceImpl implements BookService {
 

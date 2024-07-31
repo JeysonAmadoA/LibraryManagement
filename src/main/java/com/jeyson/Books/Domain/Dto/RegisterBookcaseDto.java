@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RegisterBookcaseDto {
-    private String BookcaseName;
+    private String bookcaseName;
     private String category;
 }

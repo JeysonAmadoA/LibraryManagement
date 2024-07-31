@@ -20,8 +20,8 @@ public class BookcaseMapper {
         }
 
         public static Bookcase update(Bookcase bookcase, RegisterBookcaseDto bookDto) {
-            updateFieldIfNotNull(bookcase.getBookcaseName(), bookcase::setBookcaseName);
-            updateFieldIfNotNull(bookcase.getCategory(), bookcase::setCategory);
+            updateFieldIfNotNull(bookDto.getBookcaseName(), bookcase::setBookcaseName);
+            updateFieldIfNotNull(bookDto.getCategory(), bookcase::setCategory);
             return bookcase;
         }
     }
@@ -32,11 +32,7 @@ public class BookcaseMapper {
 
             return new BookcaseDto(bookcase.getId(),
                     bookcase.getBookcaseName(),
-                    bookcase.getCategory(),
-                    bookcase.getBooks()
-                            .stream()
-                            .map(BookMapper.BookDtoMapper::toDto)
-                            .collect(Collectors.toSet()));
+                    bookcase.getCategory());
         }
     }
 }
