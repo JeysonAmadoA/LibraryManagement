@@ -35,7 +35,7 @@ public class BookcaseController extends BaseController {
         return ResponseEntity.ok().body(response);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/store")
     public ResponseEntity<?> storeBookcase(@RequestBody RegisterBookcaseDto bookcaseDto) {
         BookcaseDto bookcaseCreated = bookcaseService.store(bookcaseDto);
         Map<String, Object> response = getJsonResponse(bookcaseCreated, HttpStatus.CREATED.value());

@@ -4,7 +4,6 @@ import com.jeyson.Books.Domain.Dto.BookcaseDto;
 import com.jeyson.Books.Domain.Dto.RegisterBookcaseDto;
 import com.jeyson.Books.Domain.Entities.Bookcase;
 
-import java.util.stream.Collectors;
 import static com.jeyson.Core.Domain.Helpers.MapperHelper.updateFieldIfNotNull;
 
 public class BookcaseMapper {
