@@ -10,6 +10,7 @@ public enum Role {
 
     ADMIN(
             Arrays.asList(
+                    Permission.MONITOR_APP,
                     Permission.CREATE_ADMIN,
                     Permission.CREATE_LIBRARIAN,
                     Permission.CREATE_CUSTOMER,
@@ -24,7 +25,11 @@ public enum Role {
                     Permission.CREATE_BOOK,
                     Permission.DELETE_BOOK,
                     Permission.UPDATE_BOOK,
-                    Permission.GET_BOOKS
+                    Permission.GET_BOOKS,
+                    Permission.CREATE_RENT,
+                    Permission.DELETE_RENT,
+                    Permission.UPDATE_RENT,
+                    Permission.GET_RENT
             )
     ),
 
@@ -37,7 +42,10 @@ public enum Role {
                     Permission.UPDATE_BOOKCASE,
                     Permission.GET_BOOKCASES,
                     Permission.UPDATE_BOOK,
-                    Permission.GET_BOOKS
+                    Permission.GET_BOOKS,
+                    Permission.CREATE_RENT,
+                    Permission.UPDATE_RENT,
+                    Permission.GET_RENT
             )
     ),
 

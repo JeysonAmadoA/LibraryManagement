@@ -50,15 +50,7 @@
 
         <!-- Rollback -->
         <rollback>
-            <delete tableName="users">
-                <where>email = 'admin@example.com'</where>
-            </delete>
-            <delete tableName="users">
-                <where>email = 'tyler.joseph@example.com'</where>
-            </delete>
-            <delete tableName="users">
-                <where>email = 'joshua.dun@example.com'</where>
-            </delete>
+            <sql>TRUNCATE TABLE users CASCADE;</sql>
         </rollback>
 
     </changeSet>

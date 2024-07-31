@@ -1,7 +1,6 @@
 package com.jeyson.Users.Infrastructure.Config;
 
 import com.jeyson.Users.Domain.Constants.Security.Permission;
-import com.jeyson.Users.Domain.Constants.Security.Role;
 import com.jeyson.Users.Infrastructure.Utilities.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,8 +38,11 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( auth -> {
+                    auth.requestMatchers(antMatcher("/v3/api-docs/**")).permitAll();
+                    auth.requestMatchers(antMatcher("/doc/swagger-ui/**")).permitAll();
                     auth.requestMatchers(antMatcher("/auth/login")).permitAll();
                     auth.requestMatchers(antMatcher("/auth/register-customer")).permitAll();
+                    auth.requestMatchers(antMatcher("/actuator/**")).hasAuthority(Permission.MONITOR_APP.name());
                     auth.requestMatchers(antMatcher("/auth/register-admin")).hasAuthority(Permission.CREATE_ADMIN.name());
                     auth.requestMatchers(antMatcher("/auth/register-librarian")).hasAuthority(Permission.CREATE_LIBRARIAN.name());
                     auth.requestMatchers(antMatcher( "/users")).hasAuthority(Permission.GET_ALL_USERS.name());
@@ -57,6 +59,12 @@ public class SecurityConfig {
                     auth.requestMatchers(antMatcher( "/bookcases/delete/{id}")).hasAuthority(Permission.DELETE_BOOKCASE.name());
                     auth.requestMatchers(antMatcher( "/bookcases/{id}")).hasAuthority(Permission.GET_BOOKCASES.name());
                     auth.requestMatchers(antMatcher( "/bookcases")).hasAuthority(Permission.GET_BOOKCASES.name());
+                    auth.requestMatchers(antMatcher( "/rent/store")).hasAuthority(Permission.CREATE_RENT.name());
+                    auth.requestMatchers(antMatcher( "/rent/return/{id}")).hasAuthority(Permission.UPDATE_RENT.name());
+                    auth.requestMatchers(antMatcher( "/rent/update/{id}")).hasAuthority(Permission.UPDATE_RENT.name());
+                    auth.requestMatchers(antMatcher( "/rent/delete/{id}")).hasAuthority(Permission.DELETE_RENT.name());
+                    auth.requestMatchers(antMatcher( "/rent/{id}")).hasAuthority(Permission.GET_RENT.name());
+                    auth.requestMatchers(antMatcher( "/rent")).hasAuthority(Permission.GET_RENT.name());
                     auth.anyRequest().authenticated();
                 });
 

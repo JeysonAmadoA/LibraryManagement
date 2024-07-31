@@ -54,7 +54,6 @@ public class JwtServiceImpl implements JwtService {
         extraClaims.put("userId", user.getId());
         extraClaims.put("name", user.getName());
         extraClaims.put("role", user.getRole().name());
-        extraClaims.put("permissions", user.getAuthorities());
         return extraClaims;
     }
 

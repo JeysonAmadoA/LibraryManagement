@@ -7,6 +7,7 @@ import com.jeyson.Books.Domain.Dto.RegisterBookDto;
 import com.jeyson.Books.Domain.Entities.Book;
 import com.jeyson.Books.Domain.Exceptions.BookNotFoundException;
 import com.jeyson.Books.Domain.Exceptions.RegisterBookException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ public class BookServiceImpl implements BookService {
         this.bookRepository = bookRepository;
     }
 
+    @Cacheable("getAllBooks")
     @Override
     public List<BookDto> findAll() {
         List<Book> books = bookRepository.findAll();

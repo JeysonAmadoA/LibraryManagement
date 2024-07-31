@@ -1,5 +1,6 @@
 package com.jeyson.Users.Domain.Entities;
 
+import com.jeyson.BooksRent.Domain.Entities.BookRent;
 import com.jeyson.Core.Domain.Entities.BaseEntity;
 import com.jeyson.Users.Domain.Constants.Security.Role;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -41,6 +43,12 @@ public class User extends BaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userWhoRented")
+    private Set<BookRent> booksRented;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userWhoDelivery")
+    private Set<BookRent> booksDelivered;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

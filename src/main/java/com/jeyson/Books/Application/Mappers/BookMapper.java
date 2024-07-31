@@ -11,14 +11,15 @@ public class BookMapper {
     public static class BookDtoMapper{
 
         public static BookDto toDto(Book book){
-            return new BookDto(book.getId(),
-                    book.getBookName(),
-                    book.getAuthor(),
-                    book.getPublicationYear(),
-                    book.getPages(), book.getEditorial());
+            return BookDto.builder()
+                    .id(book.getId())
+                    .bookName(book.getBookName())
+                    .author(book.getAuthor())
+                    .publicationYear(book.getPublicationYear())
+                    .pages(book.getPages())
+                    .editorial(book.getEditorial())
+                    .build();
         }
-
-
     }
 
     public static class RegisterBookDtoMapper {

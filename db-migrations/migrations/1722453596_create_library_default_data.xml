@@ -1,0 +1,165 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="3" author="JeysonAmadoA">
+
+        <!-- Bookcases -->
+        <insert tableName="bookcase">
+            <column name="bookcase_name" value="Ficción Moderna"/>
+            <column name="category" value="Ficción"/>
+        </insert>
+        <insert tableName="bookcase">
+            <column name="bookcase_name" value="Historia Mundial"/>
+            <column name="category" value="Historia"/>
+        </insert>
+        <insert tableName="bookcase">
+            <column name="bookcase_name" value="Ciencia Ficción"/>
+            <column name="category" value="Ciencia Ficción"/>
+        </insert>
+        <insert tableName="bookcase">
+            <column name="bookcase_name" value="Biografías"/>
+            <column name="category" value="No Ficción"/>
+        </insert>
+        <insert tableName="bookcase">
+            <column name="bookcase_name" value="Literatura Clásica"/>
+            <column name="category" value="Clásicos"/>
+        </insert>
+
+        <!-- Books -->
+
+        <!-- Books for "Ficción Moderna" -->
+        <insert tableName="books">
+            <column name="book_name" value="Cien años de soledad"/>
+            <column name="author" value="Gabriel García Márquez"/>
+            <column name="publication_year" value="1967"/>
+            <column name="pages" value="417"/>
+            <column name="editorial" value="Sudamericana"/>
+            <column name="bookcase_id" value="1"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="El túnel"/>
+            <column name="author" value="Ernesto Sabato"/>
+            <column name="publication_year" value="1948"/>
+            <column name="pages" value="213"/>
+            <column name="editorial" value="Losada"/>
+            <column name="bookcase_id" value="1"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Rayuela"/>
+            <column name="author" value="Julio Cortázar"/>
+            <column name="publication_year" value="1963"/>
+            <column name="pages" value="339"/>
+            <column name="editorial" value="Siglo XXI"/>
+            <column name="bookcase_id" value="1"/>
+        </insert>
+
+        <!-- Books for "Historia Mundial" -->
+        <insert tableName="books">
+            <column name="book_name" value="Sapiens: De animales a dioses"/>
+            <column name="author" value="Yuval Noah Harari"/>
+            <column name="publication_year" value="2011"/>
+            <column name="pages" value="443"/>
+            <column name="editorial" value="Debate"/>
+            <column name="bookcase_id" value="2"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Historia del mundo"/>
+            <column name="author" value="J.M. Roberts"/>
+            <column name="publication_year" value="1997"/>
+            <column name="pages" value="1120"/>
+            <column name="editorial" value="Editorial Planeta"/>
+            <column name="bookcase_id" value="2"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Los orígenes de la Segunda Guerra Mundial"/>
+            <column name="author" value="A.J.P. Taylor"/>
+            <column name="publication_year" value="1961"/>
+            <column name="pages" value="372"/>
+            <column name="editorial" value="Península"/>
+            <column name="bookcase_id" value="2"/>
+        </insert>
+
+        <!-- Books for "Ciencia Ficción" -->
+        <insert tableName="books">
+            <column name="book_name" value="Dune"/>
+            <column name="author" value="Frank Herbert"/>
+            <column name="publication_year" value="1965"/>
+            <column name="pages" value="412"/>
+            <column name="editorial" value="Chilton Books"/>
+            <column name="bookcase_id" value="3"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Neuromancer"/>
+            <column name="author" value="William Gibson"/>
+            <column name="publication_year" value="1984"/>
+            <column name="pages" value="271"/>
+            <column name="editorial" value="Ace Books"/>
+            <column name="bookcase_id" value="3"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Fahrenheit 451"/>
+            <column name="author" value="Ray Bradbury"/>
+            <column name="publication_year" value="1953"/>
+            <column name="pages" value="194"/>
+            <column name="editorial" value="Ballantine Books"/>
+            <column name="bookcase_id" value="3"/>
+        </insert>
+
+        <!-- Books for "Biografías" -->
+        <insert tableName="books">
+            <column name="book_name" value="El diario de Ana Frank"/>
+            <column name="author" value="Ana Frank"/>
+            <column name="publication_year" value="1947"/>
+            <column name="pages" value="283"/>
+            <column name="editorial" value="Contact Editions"/>
+            <column name="bookcase_id" value="4"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Steve Jobs"/>
+            <column name="author" value="Walter Isaacson"/>
+            <column name="publication_year" value="2011"/>
+            <column name="pages" value="656"/>
+            <column name="editorial" value="Simon &amp; Schuster"/>
+            <column name="bookcase_id" value="4"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Long Walk to Freedom"/>
+            <column name="author" value="Nelson Mandela"/>
+            <column name="publication_year" value="1994"/>
+            <column name="pages" value="656"/>
+            <column name="editorial" value="Little, Brown"/>
+            <column name="bookcase_id" value="4"/>
+        </insert>
+
+        <!-- Books for "Literatura Clásica" -->
+        <insert tableName="books">
+            <column name="book_name" value="Don Quijote de la Mancha"/>
+            <column name="author" value="Miguel de Cervantes"/>
+            <column name="publication_year" value="1605"/>
+            <column name="pages" value="1023"/>
+            <column name="editorial" value="Francisco de Robles"/>
+            <column name="bookcase_id" value="5"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Orgullo y prejuicio"/>
+            <column name="author" value="Jane Austen"/>
+            <column name="publication_year" value="1813"/>
+            <column name="pages" value="279"/>
+            <column name="editorial" value="T. Egerton"/>
+            <column name="bookcase_id" value="5"/>
+        </insert>
+        <insert tableName="books">
+            <column name="book_name" value="Matar a un ruiseñor"/>
+            <column name="author" value="Harper Lee"/>
+            <column name="publication_year" value="1960"/>
+            <column name="pages" value="281"/>
+            <column name="editorial" value="J.B. Lippincott &amp; Co."/>
+            <column name="bookcase_id" value="5"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

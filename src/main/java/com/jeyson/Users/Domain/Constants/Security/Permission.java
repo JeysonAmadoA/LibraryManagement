@@ -2,6 +2,7 @@ package com.jeyson.Users.Domain.Constants.Security;
 
 
 public enum Permission {
+    MONITOR_APP,
     CREATE_ADMIN,
     CREATE_LIBRARIAN,
     CREATE_CUSTOMER,
@@ -16,5 +17,9 @@ public enum Permission {
     CREATE_BOOK,
     DELETE_BOOK,
     UPDATE_BOOK,
-    GET_BOOKS
+    GET_BOOKS,
+    CREATE_RENT,
+    DELETE_RENT,
+    UPDATE_RENT,
+    GET_RENT
 }

@@ -4,6 +4,7 @@ import com.jeyson.Books.Application.Services.BookcaseService;
 import com.jeyson.Books.Domain.Dto.BookcaseDto;
 import com.jeyson.Books.Domain.Dto.RegisterBookcaseDto;
 import com.jeyson.Core.Infrastructure.Controller.BaseController;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class BookcaseController extends BaseController {
     }
 
     @PostMapping("/store")
-    public ResponseEntity<?> storeBookcase(@RequestBody RegisterBookcaseDto bookcaseDto) {
+    public ResponseEntity<?> storeBookcase(@Valid @RequestBody RegisterBookcaseDto bookcaseDto) {
         BookcaseDto bookcaseCreated = bookcaseService.store(bookcaseDto);
         Map<String, Object> response = getJsonResponse(bookcaseCreated, HttpStatus.CREATED.value());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

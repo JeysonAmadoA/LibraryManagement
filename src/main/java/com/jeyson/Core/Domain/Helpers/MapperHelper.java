@@ -2,6 +2,7 @@ package com.jeyson.Core.Domain.Helpers;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
@@ -20,6 +21,12 @@ public class MapperHelper {
     }
 
     public static void updateFieldIfNotNull(LocalDate value, Consumer<LocalDate> updateFunction) {
+        if (value != null) {
+            updateFunction.accept(value);
+        }
+    }
+
+    public static void updateFieldIfNotNull(LocalDateTime value, Consumer<LocalDateTime> updateFunction) {
         if (value != null) {
             updateFunction.accept(value);
         }

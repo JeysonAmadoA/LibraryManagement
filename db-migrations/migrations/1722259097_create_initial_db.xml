@@ -87,8 +87,6 @@
                                  referencedColumnNames="id"
                                  constraintName="fk_bookcase"/>
 
-
-
         <!-- Table: BooksRent -->
         <createTable tableName="books_rent">
             <column autoIncrement="true" name="id" type="SERIAL">
@@ -112,9 +110,7 @@
             <column name="returning_date" type="DATE">
                 <constraints nullable="false"/>
             </column>
-            <column name="returned_at" type="TIMESTAMP">
-                <constraints nullable="false"/>
-            </column>
+            <column name="returned_at" type="TIMESTAMP"/>
             <column name="user_who_created_id" type="BIGINT"/>
             <column name="created_at" type="TIMESTAMP"/>
             <column name="user_who_updated_id" type="BIGINT"/>

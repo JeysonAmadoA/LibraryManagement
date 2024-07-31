@@ -6,6 +6,7 @@ import com.jeyson.Users.Domain.Dto.Users.UpdateUserDto;
 import com.jeyson.Users.Domain.Dto.Users.UserDto;
 import com.jeyson.Users.Domain.Entities.User;
 import com.jeyson.Users.Domain.Exceptions.UserNotFoundException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import static com.jeyson.Users.Application.Mappers.UserMapper.UserDtoMapper;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
         return userFound != null ? UserDtoMapper.toDto(userFound) : null;
     }
 
+    @Cacheable("getAllUsers")
     @Override
     public List<UserDto> findAllUsers() {
         List<User> allUsers = userRepository.findAll();

@@ -6,6 +6,8 @@ import com.jeyson.Users.Domain.Constants.Security.Role;
 import com.jeyson.Users.Domain.Dto.Auth.LoginDto;
 import com.jeyson.Users.Domain.Dto.Auth.RegisterDto;
 import com.jeyson.Users.Domain.Dto.Users.UserDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,16 +27,18 @@ public class AuthController extends BaseController {
         this.authService = authService;
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/register-admin")
-    public ResponseEntity<?> registerAdmin(@RequestBody RegisterDto registerUserDto) {
+    public ResponseEntity<?> registerAdmin(@Valid @RequestBody RegisterDto registerUserDto) {
         registerUserDto.setRole(Role.ADMIN);
         UserDto userCreated = authService.registerUser(registerUserDto);
         Map<String, Object> response = getJsonResponse(userCreated, HttpStatus.CREATED.value());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/register-librarian")
-    public ResponseEntity<?> registerLibrarian(@RequestBody RegisterDto registerUserDto) {
+    public ResponseEntity<?> registerLibrarian(@Valid @RequestBody RegisterDto registerUserDto) {
         registerUserDto.setRole(Role.LIBRARIAN);
         UserDto userCreated = authService.registerUser(registerUserDto);
         Map<String, Object> response = getJsonResponse(userCreated, HttpStatus.CREATED.value());
@@ -42,7 +46,7 @@ public class AuthController extends BaseController {
     }
 
     @PostMapping("/register-customer")
-    public ResponseEntity<?> registerCustomer(@RequestBody RegisterDto registerUserDto) {
+    public ResponseEntity<?> registerCustomer(@Valid @RequestBody RegisterDto registerUserDto) {
         registerUserDto.setRole(Role.CUSTOMER);
         UserDto userCreated = authService.registerUser(registerUserDto);
         Map<String, Object> response = getJsonResponse(userCreated, HttpStatus.CREATED.value());
@@ -50,7 +54,7 @@ public class AuthController extends BaseController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
         String jwt = authService.loginUser(loginDto);
         Map<String, Object> response = getJsonResponse(jwt);
         return ResponseEntity.status(HttpStatus.OK).body(response);

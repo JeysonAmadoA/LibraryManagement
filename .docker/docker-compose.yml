@@ -13,6 +13,12 @@ services:
     networks:
       - library-network
 
+  redis:
+    image: redis:7
+    container_name: redis
+    networks:
+      - library-network
+
 networks:
   library-network:
     driver: bridge

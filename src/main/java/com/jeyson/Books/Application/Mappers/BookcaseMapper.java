@@ -28,10 +28,7 @@ public class BookcaseMapper {
     public static class BookcaseDtoMapper {
 
         public static BookcaseDto toDto(Bookcase bookcase){
-
-            return new BookcaseDto(bookcase.getId(),
-                    bookcase.getBookcaseName(),
-                    bookcase.getCategory());
+            return new BookcaseDto(bookcase.getId(), bookcase.getBookcaseName(), bookcase.getCategory());
         }
     }
 }
