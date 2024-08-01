@@ -5,6 +5,7 @@ import com.jeyson.Users.Application.Services.UserService;
 import com.jeyson.Users.Domain.Dto.Users.UpdateUserDto;
 import com.jeyson.Users.Domain.Dto.Users.UserDto;
 import com.jeyson.Users.Domain.Entities.User;
+import com.jeyson.Users.Domain.Exceptions.RegisterUserException;
 import com.jeyson.Users.Domain.Exceptions.UserNotFoundException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.jeyson.Users.Application.Mappers.UserMapper.UserDtoMapper;
 import static com.jeyson.Users.Domain.Helpers.AuthHelper.getActualUser;
+import static com.jeyson.Users.Domain.Helpers.AuthHelper.verifyUserAccess;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto filterUserById(Long userId) {
+        verifyUserAccess(userId);
         User userFound = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         return userFound != null ? UserDtoMapper.toDto(userFound) : null;
     }
@@ -69,5 +72,17 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(e.getMessage());
         }
         return UserDtoMapper.toDto(userUpdated);
+    }
+
+    @Transactional
+    @Override
+    public void deleteUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        try {
+            user.commitDelete(getActualUser());
+            userRepository.save(user);
+        } catch (Exception exception){
+            throw new RegisterUserException(exception.getMessage());
+        }
     }
 }

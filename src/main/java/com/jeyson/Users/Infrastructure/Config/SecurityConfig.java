@@ -49,6 +49,7 @@ public class SecurityConfig {
                     auth.requestMatchers(antMatcher( "/users/{id}")).hasAuthority(Permission.GET_ONE_USER.name());
                     auth.requestMatchers(antMatcher( "/users/filter/**")).hasAuthority(Permission.GET_ALL_USERS.name());
                     auth.requestMatchers(antMatcher( "/users/update/{id}")).hasAuthority(Permission.UPDATE_USERS.name());
+                    auth.requestMatchers(antMatcher( "/users/delete/{id}")).hasAuthority(Permission.DELETE_USERS.name());
                     auth.requestMatchers(antMatcher( "/books/store")).hasAuthority(Permission.CREATE_BOOK.name());
                     auth.requestMatchers(antMatcher( "/books/update/{id}")).hasAuthority(Permission.UPDATE_BOOK.name());
                     auth.requestMatchers(antMatcher( "/books/delete/{id}")).hasAuthority(Permission.DELETE_BOOK.name());

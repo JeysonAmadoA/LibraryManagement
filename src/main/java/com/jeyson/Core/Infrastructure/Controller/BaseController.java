@@ -1,4 +1,5 @@
 package com.jeyson.Core.Infrastructure.Controller;
+import com.jeyson.Core.Domain.Exceptions.ActionNotAllowedException;
 import com.jeyson.Core.Domain.Exceptions.BusinessLogicException;
 import com.jeyson.Core.Domain.Exceptions.ElementNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -72,6 +73,12 @@ public abstract class BaseController {
     public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(getJsonResponse(exception));
+    }
+
+    @ExceptionHandler(ActionNotAllowedException.class)
+    public ResponseEntity<Map<String, Object>> handleForbiddenError(ActionNotAllowedException exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(getJsonResponse(exception, HttpStatus.FORBIDDEN.value()));
     }
 
 }

@@ -1,5 +1,7 @@
 package com.jeyson.Users.Domain.Helpers;
 
+import com.jeyson.Core.Domain.Exceptions.ActionNotAllowedException;
+import com.jeyson.Users.Domain.Constants.Security.Role;
 import com.jeyson.Users.Domain.Dto.Auth.RegisterDto;
 import com.jeyson.Users.Domain.Dto.Users.UserDto;
 import com.jeyson.Users.Domain.Exceptions.RegisterUserException;
@@ -23,6 +25,17 @@ public class AuthHelper {
             return userData.getId();
         }
         else return null;
+    }
+
+    public static void verifyUserAccess(long userId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null){
+            UserDto userData = (UserDto) authentication.getCredentials();
+            if (userData.getRole().equals(Role.CUSTOMER.name()) && userData.getId() != userId){
+                throw new ActionNotAllowedException();
+            }
+        }
+
     }
 
 }

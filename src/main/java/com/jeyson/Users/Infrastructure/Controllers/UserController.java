@@ -55,4 +55,11 @@ public class UserController extends BaseController {
         return ResponseEntity.ok().body(response);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        userService.deleteUserById(id);
+        Map<String, Object> response = getJsonResponse("Usuario eliminado con exito");
+        return ResponseEntity.ok().body(response);
+    }
+
 }
