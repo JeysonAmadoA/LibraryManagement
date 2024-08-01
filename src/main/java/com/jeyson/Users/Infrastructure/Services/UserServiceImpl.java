@@ -8,6 +8,7 @@ import com.jeyson.Users.Domain.Entities.User;
 import com.jeyson.Users.Domain.Exceptions.UserNotFoundException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.jeyson.Users.Application.Mappers.UserMapper.UserDtoMapper;
 import static com.jeyson.Users.Domain.Helpers.AuthHelper.getActualUser;
@@ -55,6 +56,7 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public UserDto updateUser(UpdateUserDto userDto, Long userId) {
         User userUpdated;

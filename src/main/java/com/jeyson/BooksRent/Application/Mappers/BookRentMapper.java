@@ -5,7 +5,6 @@ import com.jeyson.BooksRent.Domain.Dto.RegisterBookRentDto;
 import com.jeyson.BooksRent.Domain.Entities.BookRent;
 
 import static com.jeyson.Core.Domain.Helpers.MapperHelper.updateFieldIfNotNull;
-import static com.jeyson.Core.Domain.Helpers.MapperHelper.updateFieldIfNumberNotZero;
 
 public class BookRentMapper {
 

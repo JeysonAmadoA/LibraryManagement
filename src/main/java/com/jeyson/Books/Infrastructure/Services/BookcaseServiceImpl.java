@@ -7,7 +7,9 @@ import com.jeyson.Books.Domain.Dto.RegisterBookcaseDto;
 import com.jeyson.Books.Domain.Entities.Bookcase;
 import com.jeyson.Books.Domain.Exceptions.BookcaseNotFoundException;
 import com.jeyson.Books.Domain.Exceptions.RegisterBookException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,7 @@ public class BookcaseServiceImpl implements BookcaseService {
         this.bookcaseRepository = bookcaseRepository;
     }
 
+    @Cacheable("getAllBookcases")
     @Override
     public List<BookcaseDto> findAll() {
         List<Bookcase> bookcases = bookcaseRepository.findAll();
@@ -35,6 +38,7 @@ public class BookcaseServiceImpl implements BookcaseService {
         return BookcaseDtoMapper.toDto(bookcase);
     }
 
+    @Transactional
     @Override
     public BookcaseDto store(RegisterBookcaseDto bookDto) {
         Bookcase newBookcase = RegisterBookcaseDtoMapper.toEntity(bookDto);
@@ -47,6 +51,7 @@ public class BookcaseServiceImpl implements BookcaseService {
         }
     }
 
+    @Transactional
     @Override
     public BookcaseDto update(Long id, RegisterBookcaseDto bookDto) {
         Bookcase bookcase = bookcaseRepository.findById(id).orElseThrow(BookcaseNotFoundException::new);
@@ -60,6 +65,7 @@ public class BookcaseServiceImpl implements BookcaseService {
         }
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         Bookcase bookcase = bookcaseRepository.findById(id).orElseThrow(BookcaseNotFoundException::new);

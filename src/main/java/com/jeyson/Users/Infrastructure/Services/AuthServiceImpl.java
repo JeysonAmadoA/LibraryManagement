@@ -12,6 +12,7 @@ import com.jeyson.Users.Domain.Exceptions.UserNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.jeyson.Users.Domain.Helpers.AuthHelper.verifyRegisterPasswords;
 import static com.jeyson.Users.Application.Mappers.UserMapper.RegisterUserDtoMapper.toEntity;
@@ -32,6 +33,7 @@ public class AuthServiceImpl implements AuthService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     @Override
     public UserDto registerUser(RegisterDto registerDto) {
         User userRegistered;

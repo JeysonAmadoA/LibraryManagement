@@ -9,6 +9,8 @@ import com.jeyson.Books.Domain.Exceptions.BookNotFoundException;
 import com.jeyson.Books.Domain.Exceptions.RegisterBookException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +39,7 @@ public class BookServiceImpl implements BookService {
         return BookDtoMapper.toDto(book);
     }
 
+    @Transactional
     @Override
     public BookDto store(RegisterBookDto bookDto) {
         Book newBook = RegisterBookDtoMapper.toEntity(bookDto);
@@ -49,6 +52,7 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Transactional
     @Override
     public BookDto update(Long id, RegisterBookDto bookDto) {
         Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
@@ -62,6 +66,7 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);

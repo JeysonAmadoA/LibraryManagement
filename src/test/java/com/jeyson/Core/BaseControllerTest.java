@@ -1,9 +1,6 @@
 package com.jeyson.Core;
 
-import com.jeyson.Books.Application.Repositories.BookRepository;
-import com.jeyson.Books.Application.Repositories.BookcaseRepository;
-import com.jeyson.Books.Domain.Entities.Book;
-import com.jeyson.Books.Domain.Entities.Bookcase;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeyson.Users.Application.Repositories.UserRepository;
 import com.jeyson.Users.Application.Services.JwtService;
 import com.jeyson.Users.Domain.Constants.Security.Role;
@@ -11,23 +8,30 @@ import com.jeyson.Users.Domain.Entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.UUID;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class BaseControllerTest {
 
     @Autowired
-    protected BookRepository bookRepository;
+    private MockMvc mockMvc;
 
     @Autowired
-    protected BookcaseRepository bookcaseRepository;
+    private ObjectMapper objectMapper;
 
     @Autowired
     protected UserRepository userRepository;
@@ -38,22 +42,7 @@ public class BaseControllerTest {
     protected String token;
 
     @BeforeEach
-    public void setUp() {
-        Bookcase bookcase = Bookcase.builder()
-                .bookcaseName("Bookcase")
-                .category("Magic")
-                .build();
-
-        bookcaseRepository.save(bookcase);
-
-        Book book = Book.builder()
-                .bookName("Harry Potter")
-                .bookcaseId(bookcase.getId())
-                .author("JK Rowling")
-                .pages((short) 323)
-                .publicationYear((short) 1990)
-                .build();
-
+    public void setUpLogin() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encryptedPassword = encoder.encode("1234");
 
@@ -66,7 +55,15 @@ public class BaseControllerTest {
                 .build();
 
         userRepository.save(user);
-        bookRepository.save(book);
         token = jwtService.generateToken(user);
+    }
+
+    protected void assertPostRequest(String url, Object body, ResultMatcher expectedStatus) throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(body);
+
+        mockMvc.perform(post(url)
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonBody)).andExpect(expectedStatus);
     }
 }

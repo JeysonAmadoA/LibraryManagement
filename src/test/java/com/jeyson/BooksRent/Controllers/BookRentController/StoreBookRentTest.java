@@ -1,33 +1,57 @@
 package com.jeyson.BooksRent.Controllers.BookRentController;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jeyson.Books.Application.Repositories.BookRepository;
+import com.jeyson.Books.Application.Repositories.BookcaseRepository;
+import com.jeyson.Books.Domain.Entities.Book;
+import com.jeyson.Books.Domain.Entities.Bookcase;
+import com.jeyson.BooksRent.Application.Repositories.BookRentRepository;
 import com.jeyson.BooksRent.Domain.Dto.RegisterBookRentDto;
+import com.jeyson.BooksRent.Domain.Entities.BookRent;
 import com.jeyson.Core.BaseControllerTest;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.web.servlet.MockMvc;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class StoreBookRentTest extends BaseControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private BookRentRepository bookRentRepository;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    protected BookRepository bookRepository;
+
+    @Autowired
+    protected BookcaseRepository bookcaseRepository;
+
+    @BeforeEach
+    void setUp(){
+        Bookcase bookcase = Bookcase.builder()
+                .bookcaseName("Bookcase")
+                .category("Magic")
+                .build();
+
+        bookcaseRepository.save(bookcase);
+
+        Book book = Book.builder()
+                .bookName("Harry Potter")
+                .bookcaseId(bookcase.getId())
+                .author("JK Rowling")
+                .pages((short) 323)
+                .publicationYear((short) 1990)
+                .build();
+
+        bookRepository.save(book);
+    }
 
     @Test
     @Transactional
@@ -44,12 +68,14 @@ public class StoreBookRentTest extends BaseControllerTest {
                 .deliveryAt(LocalDateTime.now())
                 .build();
 
+        assertPostRequest("/rent/store", dto, status().isCreated());
+        List<BookRent> list = bookRentRepository.findAll();
+        assertThat(list).isNotEmpty();
 
-        mockMvc.perform(post("/rent/store")
-                        .header("Authorization", "Bearer " + token)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dto)))
-                .andExpect(status().isCreated());
+        boolean recordExists = list.stream().anyMatch(rent ->
+                rent.getBookId() == bookId && rent.getUserWhoRentedId() == userId
+        );
+        assertThat(recordExists).isTrue();
     }
 
 }

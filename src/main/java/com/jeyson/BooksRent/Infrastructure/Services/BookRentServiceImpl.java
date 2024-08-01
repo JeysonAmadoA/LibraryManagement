@@ -12,6 +12,7 @@ import com.jeyson.BooksRent.Domain.Exceptions.CustomerWithPenaltiesException;
 import com.jeyson.BooksRent.Domain.Exceptions.RegisterBookRentException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.jeyson.BooksRent.Application.Mappers.BookRentMapper.*;
 import static com.jeyson.Core.Domain.Helpers.TimeHelper.addBusinessDays;
@@ -46,6 +47,7 @@ public class BookRentServiceImpl implements BookRentService {
         return BookRentDtoMapper.toDto(bookRented);
     }
 
+    @Transactional
     @Override
     public BookRentDto store(RegisterBookRentDto registerDto) {
         validateStoreRent(registerDto);
@@ -73,6 +75,7 @@ public class BookRentServiceImpl implements BookRentService {
             throw new BookAlreadyRentedException();
     }
 
+    @Transactional
     @Override
     public BookRentDto update(Long id, RegisterBookRentDto updateDto) {
         BookRent bookRented = bookRentRepository.findById(id).orElseThrow(BookRentNotFoundException::new);
@@ -86,6 +89,7 @@ public class BookRentServiceImpl implements BookRentService {
         }
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         BookRent bookRented = bookRentRepository.findById(id).orElseThrow(BookRentNotFoundException::new);
@@ -97,6 +101,7 @@ public class BookRentServiceImpl implements BookRentService {
         }
     }
 
+    @Transactional
     @Override
     public void storeReturnBookRent(long bookRentId) {
         BookRent bookRented = bookRentRepository.findById(bookRentId).orElseThrow(BookRentNotFoundException::new);
